@@ -1,0 +1,5 @@
+<%= form_tag '/upload', {method: :post, multipart: true} do |f| %>
+  <%= file_field_tag :picture %>
+  <%= submit_tag 'Upload'%>
+<% end %>
+<%= @extracted_text %>
