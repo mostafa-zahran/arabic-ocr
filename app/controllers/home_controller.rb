@@ -6,8 +6,8 @@ class HomeController < ApplicationController
 
   def ocr
     uploaded_io = params[:picture]
-    dir = Rails.root.join('public')
-    path = Rails.root.join('public', uploaded_io.original_filename)
+    dir = Rails.root.join('tmp')
+    path = Rails.root.join('tmp', uploaded_io.original_filename)
     File.open(path, 'wb') do |file|
       file.write(uploaded_io.read)
       tiff_path = "#{File.split(path).first}/text.tiff"
