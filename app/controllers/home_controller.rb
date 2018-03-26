@@ -8,21 +8,21 @@ class HomeController < ApplicationController
   def ocr
     uploaded_io = params[:picture]
     lang = params[:lang]
-    dir = Rails.root.join('tmp')
     path = Rails.root.join('tmp', uploaded_io.original_filename)
     tiff_path = Rails.root.join('tmp', 'text.tiff')
-    text_path = Rails.root.join('tmp', 'ara.txt')
+    text_path = Rails.root.join('tmp', 'text')
+    text_with_extention = text_path.to_s + '.txt'
     File.open(path, 'wb') do |file|
       file.write(uploaded_io.read)
     end
     system("convert -depth 8 -density 300 #{path} #{tiff_path}")
     File.delete(path)
     system("./lib/textcleaner -g #{tiff_path} #{tiff_path}")
-    system("tesseract #{tiff_path} #{dir}/ara -l ara")
+    system("tesseract #{tiff_path} #{text_path} -l #{lang}")
     File.delete(tiff_path)
-    if File.exist?(text_path)
-      @extracted_text = File.read(text_path).to_s
-      File.delete(text_path)
+    if File.exist?(text_with_extention)
+      @extracted_text = File.read(text_with_extention).to_s
+      File.delete(text_with_extention)
     end
     render :index
   end
