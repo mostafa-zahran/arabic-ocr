@@ -17,6 +17,7 @@ class HomeController < ApplicationController
     end
     system("convert -depth 8 -density 300 #{path} #{tiff_path}")
     File.delete(path)
+
     #system("./lib/textcleaner -g #{tiff_path} #{tiff_path}")
     system("tesseract #{tiff_path} #{text_path} -l #{lang}")
     File.delete(tiff_path)
