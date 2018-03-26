@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :set_shared_params
 
   def index
     @extracted_text = ''
@@ -23,5 +24,11 @@ class HomeController < ApplicationController
       File.delete(text_path)
     end
     render :index
+  end
+
+  private
+
+  def set_shared_params
+    @langs = %w[ara eng]
   end
 end

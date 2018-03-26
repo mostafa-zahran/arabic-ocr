@@ -1,5 +1,6 @@
 <%= form_tag '/upload', {method: :post, multipart: true} do |f| %>
   <%= file_field_tag :picture %>
+  <%= select_tag :lang, options_for_select(@langs, @langs.first) %>
   <%= submit_tag 'Upload'%>
 <% end %>
 <%= @extracted_text %>
