@@ -7,6 +7,7 @@ class HomeController < ApplicationController
 
   def ocr
     uploaded_io = params[:picture]
+    lang = params[:lang]
     dir = Rails.root.join('tmp')
     path = Rails.root.join('tmp', uploaded_io.original_filename)
     tiff_path = Rails.root.join('tmp', 'text.tiff')
