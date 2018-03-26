@@ -18,8 +18,10 @@ class HomeController < ApplicationController
     system("./lib/textcleaner -g #{tiff_path} #{tiff_path}")
     system("tesseract #{tiff_path} #{dir}/ara -l ara")
     File.delete(tiff_path)
-    @extracted_text = File.read(text_path).to_s if File.exist?(text_path)
-    File.delete(text_path)
+    if File.exist?(text_path)
+      @extracted_text = File.read(text_path).to_s
+      File.delete(text_path)
+    end
     render :index
   end
 end
